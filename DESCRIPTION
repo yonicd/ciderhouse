@@ -1,0 +1,20 @@
+Package: YSmisc
+Type: Package
+Title: Miscellaneous functions
+Version: 0.0.1
+Date: 2017-04-11
+Author: Jonathan Sidi [aut, cre]
+Maintainer: Jonathan Sidi <yonis@metrumrg.com>
+Description: Miscellaneous functions
+Depends:
+    R (>= 2.3.0)
+Imports:
+  stringr,
+  utils
+License: GPL-2 | GPL-3
+URL: https://github.com/yonicd/misc
+BugReports: https://github.com/yonicd/misc/issues
+LazyData: true
+NeedsCompilation: no
+Packaged: 2017-01-31 14:00:00 UTC; Yoni
+RoxygenNote: 6.0.1

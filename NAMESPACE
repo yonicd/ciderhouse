@@ -3,6 +3,7 @@
 export(grepDir)
 export(list.files_github)
 export(makeImport)
+importFrom(rstudioapi,getActiveDocumentContext)
 importFrom(rvest,html_nodes)
 importFrom(rvest,html_text)
 importFrom(stringr,str_extract_all)

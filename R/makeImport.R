@@ -25,9 +25,9 @@ makeImport=function(file,cut=NULL,print=FALSE,format='oxygen'){
     }))
     out=unique(out)
     if(format=='oxygen'){
-      ret=paste0('@importFrom ',gsub('::',' ',nm),gsub(nm,'',paste(unique(out),collapse = ' ')))
+      ret=paste0("#' @importFrom ",gsub('::',' ',nm),gsub(nm,'',paste(unique(out),collapse = ' ')))
       if(!is.null(cut)){
-        if(length(out)>=cut) ret=paste0('@import ',gsub('::','',nm))
+        if(length(out)>=cut) ret=paste0("#' @import ",gsub('::','',nm))
       } 
       out=ret
     }

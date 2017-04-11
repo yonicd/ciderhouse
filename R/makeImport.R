@@ -4,6 +4,10 @@
 #' @param cut integer number of functions to write as importFrom until switches to import
 #' @param print boolean print output to console, default FALSE
 #' @param format character the output format must be in c('oxygen','namespace'), default oxygen
+#' @examples 
+#' makeImport(list.files_github('yonicd/YSmisc','R'),print = T,format = 'oxygen')
+#' makeImport(list.files_github('yonicd/YSmisc','R'),print = T,format = 'namespace')
+#' @export
 #' @importFrom stringr str_extract_all
 #' @importFrom utils installed.packages
 makeImport=function(file,cut=NULL,print=FALSE,format='oxygen'){

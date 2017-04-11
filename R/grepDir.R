@@ -7,6 +7,7 @@
 #' @return grepDir(value = FALSE) returns a vector of the indices of the elements of x that yielded a match (or not, for invert = TRUE. 
 #' This will be an integer vector unless the input is a long vector, when it will be a double vector.
 #' grepDir(value = TRUE) returns a character vector containing the selected elements of x (after coercion, preserving names but no other attributes).
+#' @export
 #' 
 grepDir=function(pattern,path,recursive=FALSE,...){
   grepVars=list(...)

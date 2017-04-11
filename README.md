@@ -10,14 +10,22 @@ makeImport(list.files_github('yonicd/YSmisc','R'),print = T,format = 'oxygen')
  
 https://raw.githubusercontent.com/yonicd/YSmisc/master/R/grepDir.R
 
+ 
+https://raw.githubusercontent.com/yonicd/YSmisc/master/R/listFilesGithub.R
+@importFrom rvest html_nodes html_text
+@importFrom xml2 read_html
+ 
 https://raw.githubusercontent.com/yonicd/YSmisc/master/R/makeImport.R
 @importFrom stringr str_extract_all
 @importFrom utils installed.packages
 
 makeImport(list.files_github('yonicd/YSmisc','R'),print = T,format = 'namespace')
  
+importFrom(rvest,html_nodes)
+importFrom(rvest,html_text)
 importFrom(stringr,str_extract_all)
 importFrom(utils,installed.packages)
+importFrom(xml2,read_html)
 ```
 
 ## grepDir
@@ -28,6 +36,7 @@ Return raw paths to files in github directory. Useful when combined with readLin
 
 ```r
 list.files_github('yonicd/YSmisc','R')
-[1] "https://raw.githubusercontent.com/yonicd/YSmisc/master/R/grepDir.R"   
-[2] "https://raw.githubusercontent.com/yonicd/YSmisc/master/R/makeImport.R"
+[1] "https://raw.githubusercontent.com/yonicd/YSmisc/master/R/grepDir.R"        
+[2] "https://raw.githubusercontent.com/yonicd/YSmisc/master/R/listFilesGithub.R"
+[3] "https://raw.githubusercontent.com/yonicd/YSmisc/master/R/makeImport.R"
 ```

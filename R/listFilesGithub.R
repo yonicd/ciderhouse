@@ -14,5 +14,6 @@ list.files_github=function(repo,subdir='R'){
 root=sprintf('https://github.com/%s/tree/master/%s',repo,subdir)
 xpath='//*[contains(concat( " ", @class, " " ), concat( " ", "css-truncate-target", " " ))]//*[contains(concat( " ", @class, " " ), concat( " ", "js-navigation-open", " " ))]'
 s=xml2::read_html(root)%>%rvest::html_nodes(xpath=xpath)%>%rvest::html_text()
+#ggplot2::ggplot()
 sprintf('https://raw.githubusercontent.com/%s/master/%s/%s',repo,subdir,s)
 }

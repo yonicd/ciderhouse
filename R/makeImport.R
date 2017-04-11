@@ -14,6 +14,7 @@ makeImport=function(file,cut=NULL,print=FALSE,format='oxygen'){
   rInst<-paste0(row.names(utils::installed.packages()),'::')
   pkg=sapply(file,function(f){
   x<-readLines(f,warn = F)
+  x=x[!grepl('^#',x)]
   s0=sapply(paste0('\\b',rInst,'\\b'),grep,x=x,value=TRUE)
   s1=s0[which(sapply(s0,function(y) length(y)>0))]
   names(s1)=gsub('\\\\b','',names(s1))

@@ -24,6 +24,7 @@ makeImport=function(file,cut=NULL,print=FALSE,format='oxygen'){
       names(y)=NULL
       y 
     }))
+    out=gsub('\\$.*','',out)
     out=unique(out)
     if(format=='oxygen'){
       ret=paste0("#' @importFrom ",gsub('::',' ',nm),gsub(nm,'',paste(unique(out),collapse = ' ')))

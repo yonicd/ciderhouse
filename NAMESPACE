@@ -3,6 +3,8 @@
 export(grepDir)
 export(list.files_github)
 export(makeImport)
+export(setwd.url)
+importFrom(RCurl,getURL)
 importFrom(rstudioapi,getActiveDocumentContext)
 importFrom(rvest,html_nodes)
 importFrom(rvest,html_text)

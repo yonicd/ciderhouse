@@ -43,10 +43,23 @@ makeImport=function(file,cut=NULL,print=FALSE,format='oxygen'){
   
   if(format=='namespace'){
     pkg=sort(unique(unlist(pkg)))
+    pkgN=gsub(':.*','',pkg)
+    pkgC=table(pkgN)
+
     ret=paste0('importFrom(',gsub('::',',',pkg),')')
-    retWrite=paste(' ',paste(ret,collapse='\n'),sep = '\n')
+    
+    if(!is.null(cut)){
+      ret=sapply(names(pkgC),function(x){
+        if(pkgC[x]>=cut){
+          sprintf('import(%s)',unique(gsub(':.*','',x))) 
+        }else{
+          paste0('importFrom(',gsub('::',',',grep(x,pkg,value=T)),')')
+        }
+      })
+    }
+    retWrite=paste(' ',paste(unlist(ret),collapse='\n'),sep = '\n')
     if(print) writeLines(retWrite)
-  }
-  
+    } 
+    
   invisible(ret)
 }

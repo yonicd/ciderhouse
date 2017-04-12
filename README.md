@@ -5,8 +5,20 @@ Function that scrapes an R file or directory of R files to create calls for name
 
 Instead of manually cataloging where each function is imported from this allows developer to write the R script with namespaces syntax (ie library::function) and then run the function to create the output needed for eith an roxygen header or directly to NAMESPACE
 
+When you are building a package to submit to cran and you need to have namespace calls for any function that is being imported.
+
+It is a pain (at least for me) to manually parse through the code looking for all the `*::*` and writing it in the roxygen header.
+
+this function does that for you. 
+
+you can write normally your script with the namespace calls and in the end run the function and you can paste the output into the header. 
+
+The function is written to work on single files or whole dirs (like in a package R subdir).
+
+The addin uses the active document in the RStudio editor console as the file argument.
+
 ```r
-makeImport(list.files_github('yonicd/YSmisc','R'),print = T,format = 'oxygen')
+makeImport(file=list.files_github('yonicd/YSmisc','R'),print = T,format = 'oxygen')
  
 https://raw.githubusercontent.com/yonicd/YSmisc/master/R/grepDir.R
 
@@ -19,7 +31,7 @@ https://raw.githubusercontent.com/yonicd/YSmisc/master/R/makeImport.R
 @importFrom stringr str_extract_all
 @importFrom utils installed.packages
 
-makeImport(list.files_github('yonicd/YSmisc','R'),print = T,format = 'namespace')
+makeImport(file=list.files_github('yonicd/YSmisc','R'),print = T,format = 'namespace')
  
 importFrom(rvest,html_nodes)
 importFrom(rvest,html_text)

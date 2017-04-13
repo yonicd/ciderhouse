@@ -9,17 +9,29 @@ grepDir(pattern, path, recursive = FALSE, ...)
 \arguments{
 \item{pattern}{character string containing a regular expression}
 
-\item{path}{path to search}
+\item{path}{path to search, see details}
 
 \item{recursive}{logical. Should the listing recurse into directories? passed to list.files}
 
 \item{...}{arguments passed to grep}
 }
 \value{
-grepDir(value = FALSE) returns a vector of the indices of the elements of x that yielded a match (or not, for invert = TRUE. 
+grepDir(value = FALSE) returns a vector of the indices of the elements of x 
+that yielded a match (or not, for invert = TRUE. 
 This will be an integer vector unless the input is a long vector, when it will be a double vector.
-grepDir(value = TRUE) returns a character vector containing the selected elements of x (after coercion, preserving names but no other attributes).
+grepDir(value = TRUE) returns a character vector containing the selected elements of x 
+(after coercion, preserving names but no other attributes).
 }
 \description{
 Recursive call to grep in R
+}
+\details{
+if path is a character then the pattern is checked against a location on the local machine, 
+if path is a list with arguments containing params for ls_github(repo,subdir) 
+then the pattern is checked on the specified github repository (repository must be public).
+In this case of the recursive parameter takes over-rides over the list parameter.
+}
+\examples{
+grepDir(pattern = 'gsub',path = '.',value=TRUE,recursive = T)
+grepDir(pattern = 'importFrom',path = c(repo='yonicd/YSmisc',subdir='R'),value=TRUE)
 }

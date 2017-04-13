@@ -5,9 +5,9 @@
 #' @param print boolean print output to console, default FALSE
 #' @param format character the output format must be in c('oxygen','namespace','description'), default oxygen
 #' @examples 
-#' makeImport(list.files_github('yonicd/YSmisc','R'),print = T,format = 'oxygen')
-#' makeImport(list.files_github('yonicd/YSmisc','R'),print = T,format = 'namespace')
-#' makeImport(list.files_github('yonicd/YSmisc','R'),print = T,format = 'description')
+#' makeImport(ls_github('yonicd/YSmisc','R'),print = T,format = 'oxygen')
+#' makeImport(ls_github('yonicd/YSmisc','R'),print = T,format = 'namespace')
+#' makeImport(ls_github('yonicd/YSmisc','R'),print = T,format = 'description')
 #' @export
 #' @importFrom stringr str_extract_all
 #' @importFrom utils installed.packages

@@ -19,7 +19,7 @@ makeImport(file, cut = NULL, print = FALSE, format = "oxygen")
 Scrape r script to create namespace calls for roxygen, namespace or description files
 }
 \examples{
-makeImport(list.files_github('yonicd/YSmisc','R'),print = T,format = 'oxygen')
-makeImport(list.files_github('yonicd/YSmisc','R'),print = T,format = 'namespace')
-makeImport(list.files_github('yonicd/YSmisc','R'),print = T,format = 'description')
+makeImport(ls_github('yonicd/YSmisc','R'),print = T,format = 'oxygen')
+makeImport(ls_github('yonicd/YSmisc','R'),print = T,format = 'namespace')
+makeImport(ls_github('yonicd/YSmisc','R'),print = T,format = 'description')
 }

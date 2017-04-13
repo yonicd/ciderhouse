@@ -96,13 +96,40 @@ $`./R/setwdURL.R`
 
 #search github
   grepDir(pattern = 'importFrom',path = c('yonicd/YSmisc','R'),value=TRUE)
+$`R/grepDir.R`
+[1] "#' grepDir(pattern = 'importFrom',path = c(repo='yonicd/YSmisc',subdir='R'),value=TRUE)"
+
+$`R/importAddin.R`
+[1] "#' @importFrom rstudioapi getActiveDocumentContext"
+
+$`R/ls_github.R`
+[1] "#' @importFrom httr content GET"
+
+$`R/makeImport.R`
+[1] "#' @param cut integer number of functions to write as importFrom until switches to import"            
+[2] "#' @importFrom stringr str_extract_all"                                                               
+[3] "#' @importFrom utils installed.packages"                                                              
+[4] "      ret=paste0(\"#' @importFrom \",gsub('::',' ',nm),gsub(nm,'',paste(unique(out),collapse = ' ')))"
+[5] "    ret=paste0('importFrom(',gsub('::',',',pkg),')')"                                                 
+[6] "          paste0('importFrom(',gsub('::',',',grep(x,pkg,value=T)),')')"                               
+
+$`R/runStanGit.R`
+[1] "#' @importFrom RCurl getURL"
 ```
 
-## list.files_github
-Return raw paths to files in github directory. Useful when combined with readLines and the first two functions.
+## ls_github
+Return raw paths to files in github directory. 
 
 ```r
-list.files_github('yonicd/YSmisc','R')
+#head of master branch
+ls_github(repo='yonicd/YSmisc')
+[1] "https://raw.githubusercontent.com/yonicd/YSmisc/master/DESCRIPTION"
+[2] "https://raw.githubusercontent.com/yonicd/YSmisc/master/NAMESPACE"  
+[3] "https://raw.githubusercontent.com/yonicd/YSmisc/master/README.md"  
+[4] "https://raw.githubusercontent.com/yonicd/YSmisc/master/misc.Rproj" 
+
+#subdirectory R
+ls_github(repo='yonicd/YSmisc',subdir='R')
 [1] "https://raw.githubusercontent.com/yonicd/YSmisc/master/R/grepDir.R"        
 [2] "https://raw.githubusercontent.com/yonicd/YSmisc/master/R/importAddin.R"    
 [3] "https://raw.githubusercontent.com/yonicd/YSmisc/master/R/listFilesGithub.R"
@@ -110,25 +137,9 @@ list.files_github('yonicd/YSmisc','R')
 [5] "https://raw.githubusercontent.com/yonicd/YSmisc/master/R/runStanGit.R"     
 [6] "https://raw.githubusercontent.com/yonicd/YSmisc/master/R/setwdURL.R"
 
-list.files_github('tidyverse/ggplot2','R')%>%head(.,20)
- [1] "https://raw.githubusercontent.com/tidyverse/ggplot2/master/R/aaa-.r"                   
- [2] "https://raw.githubusercontent.com/tidyverse/ggplot2/master/R/aes-calculated.r"         
- [3] "https://raw.githubusercontent.com/tidyverse/ggplot2/master/R/aes-colour-fill-alpha.r"  
- [4] "https://raw.githubusercontent.com/tidyverse/ggplot2/master/R/aes-group-order.r"        
- [5] "https://raw.githubusercontent.com/tidyverse/ggplot2/master/R/aes-linetype-size-shape.r"
- [6] "https://raw.githubusercontent.com/tidyverse/ggplot2/master/R/aes-position.r"           
- [7] "https://raw.githubusercontent.com/tidyverse/ggplot2/master/R/aes.r"                    
- [8] "https://raw.githubusercontent.com/tidyverse/ggplot2/master/R/annotation-custom.r"      
- [9] "https://raw.githubusercontent.com/tidyverse/ggplot2/master/R/annotation-logticks.r"    
-[10] "https://raw.githubusercontent.com/tidyverse/ggplot2/master/R/annotation-map.r"         
-[11] "https://raw.githubusercontent.com/tidyverse/ggplot2/master/R/annotation-raster.r"      
-[12] "https://raw.githubusercontent.com/tidyverse/ggplot2/master/R/annotation.r"             
-[13] "https://raw.githubusercontent.com/tidyverse/ggplot2/master/R/autolayer.r"              
-[14] "https://raw.githubusercontent.com/tidyverse/ggplot2/master/R/autoplot.r"               
-[15] "https://raw.githubusercontent.com/tidyverse/ggplot2/master/R/axis-secondary.R"         
-[16] "https://raw.githubusercontent.com/tidyverse/ggplot2/master/R/bench.r"                  
-[17] "https://raw.githubusercontent.com/tidyverse/ggplot2/master/R/bin.R"                    
-[18] "https://raw.githubusercontent.com/tidyverse/ggplot2/master/R/coord-.r"                 
-[19] "https://raw.githubusercontent.com/tidyverse/ggplot2/master/R/coord-cartesian-.r"       
-[20] "https://raw.githubusercontent.com/tidyverse/ggplot2/master/R/coord-fixed.r"
+#recursive call
+ls_github(repo='yonicd/YSmisc',subdir='inst',recursive = FALSE) #returns nothing
+> character(0)
+ls_github(repo='yonicd/YSmisc',subdir='inst',recursive = TRUE)
+[1] "https://raw.githubusercontent.com/yonicd/YSmisc/master/inst/rstudio/addins.dcf"
 ```

@@ -20,6 +20,8 @@ if(!is.null(subdir)){
   s=grep(paste0('^',subdir,'/'),s,value=TRUE)
   g=grep('(/.*){2,}',s)
   if(length(g)>0) if(!recursive) s=s[-g]
+}else{
+  s=unlist(s)
 } 
 sprintf('https://raw.githubusercontent.com/%s/master/%s',repo,s)
 }

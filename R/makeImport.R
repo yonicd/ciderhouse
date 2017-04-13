@@ -1,21 +1,23 @@
 #' @title Scrape R script to create namespace calls
-#' @description Scrape r script to create namespace calls for roxygen and namespace file
+#' @description Scrape r script to create namespace calls for roxygen, namespace or description files
 #' @param file character connection to pass to readLines, can be file path, directory path, url path
 #' @param cut integer number of functions to write as importFrom until switches to import
 #' @param print boolean print output to console, default FALSE
-#' @param format character the output format must be in c('oxygen','namespace'), default oxygen
+#' @param format character the output format must be in c('oxygen','namespace','description'), default oxygen
 #' @examples 
 #' makeImport(list.files_github('yonicd/YSmisc','R'),print = T,format = 'oxygen')
 #' makeImport(list.files_github('yonicd/YSmisc','R'),print = T,format = 'namespace')
+#' makeImport(list.files_github('yonicd/YSmisc','R'),print = T,format = 'description')
 #' @export
 #' @importFrom stringr str_extract_all
 #' @importFrom utils installed.packages
 makeImport=function(file,cut=NULL,print=FALSE,format='oxygen'){
   rInst<-paste0(row.names(utils::installed.packages()),'::')
+  
   pkg=sapply(file,function(f){
   x<-readLines(f,warn = F)
   x=x[!grepl('^#',x)]
-  s0=sapply(paste0('\\b',rInst,'\\b'),grep,x=x,value=TRUE)
+  s0=sapply(paste0('\\b',rInst),grep,x=x,value=TRUE)
   s1=s0[which(sapply(s0,function(y) length(y)>0))]
   names(s1)=gsub('\\\\b','',names(s1))
   ret=sapply(names(s1),function(nm){
@@ -61,5 +63,11 @@ makeImport=function(file,cut=NULL,print=FALSE,format='oxygen'){
     if(print) writeLines(retWrite)
     } 
     
+  if(format=='description'){
+    ret=unique(gsub('::(.*?)$','',unlist(pkg)))
+    retWrite=sprintf('Imports: %s',paste(ret,collapse=','))
+    if(print) writeLines(retWrite)
+  }
+  
   invisible(ret)
 }

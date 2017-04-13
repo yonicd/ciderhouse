@@ -13,12 +13,13 @@ makeImport(file, cut = NULL, print = FALSE, format = "oxygen")
 
 \item{print}{boolean print output to console, default FALSE}
 
-\item{format}{character the output format must be in c('oxygen','namespace'), default oxygen}
+\item{format}{character the output format must be in c('oxygen','namespace','description'), default oxygen}
 }
 \description{
-Scrape r script to create namespace calls for roxygen and namespace file
+Scrape r script to create namespace calls for roxygen, namespace or description files
 }
 \examples{
 makeImport(list.files_github('yonicd/YSmisc','R'),print = T,format = 'oxygen')
 makeImport(list.files_github('yonicd/YSmisc','R'),print = T,format = 'namespace')
+makeImport(list.files_github('yonicd/YSmisc','R'),print = T,format = 'description')
 }

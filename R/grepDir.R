@@ -12,7 +12,9 @@
 grepDir=function(pattern,path,recursive=FALSE,...){
   grepVars=list(...)
   list2env(grepVars,envir = environment())
-  fl=list.files(path,recursive = recursive,full.names = TRUE)
+  if(length(path)==1) fl=list.files(path,recursive = recursive,full.names = TRUE)
+  if(length(path)>1) fl=list.files_github(path[1],path[2])
+            
   out=sapply(fl,function(x){
     args=grepVars
     args$pattern=pattern

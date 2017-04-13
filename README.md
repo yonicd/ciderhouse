@@ -22,26 +22,81 @@ makeImport(file=list.files_github('yonicd/YSmisc','R'),print = T,format = 'oxyge
  
 https://raw.githubusercontent.com/yonicd/YSmisc/master/R/grepDir.R
 
+https://raw.githubusercontent.com/yonicd/YSmisc/master/R/importAddin.R
+#' @importFrom rstudioapi getActiveDocumentContext
  
 https://raw.githubusercontent.com/yonicd/YSmisc/master/R/listFilesGithub.R
-@importFrom rvest html_nodes html_text
-@importFrom xml2 read_html
+#' @importFrom rvest html_text html_nodes
+#' @importFrom xml2 read_html
  
 https://raw.githubusercontent.com/yonicd/YSmisc/master/R/makeImport.R
-@importFrom stringr str_extract_all
-@importFrom utils installed.packages
-
-makeImport(file=list.files_github('yonicd/YSmisc','R'),print = T,format = 'namespace')
+#' @importFrom stringr str_extract_all
+#' @importFrom utils installed.packages
  
+https://raw.githubusercontent.com/yonicd/YSmisc/master/R/runStanGit.R
+#' @importFrom RCurl getURL
+ 
+https://raw.githubusercontent.com/yonicd/YSmisc/master/R/setwdURL.R
+#' @importFrom stringr str_extract
+```
+
+```r
+makeImport(list.files_github('yonicd/YSmisc','R'),print = T,format = 'namespace')
+
+importFrom(RCurl,getURL)
+importFrom(rstudioapi,getActiveDocumentContext)
 importFrom(rvest,html_nodes)
 importFrom(rvest,html_text)
+importFrom(stringr,str_extract)
 importFrom(stringr,str_extract_all)
 importFrom(utils,installed.packages)
 importFrom(xml2,read_html)
 ```
 
+```r
+makeImport(list.files_github('yonicd/YSmisc','R'),print = T,format = 'description')
+
+Imports: rstudioapi,rvest,xml2,stringr,utils,RCurl
+```
+
 ## grepDir
-Function that generalizes grep in R to search in entire directory tree, returns grep by file that matches pattern. 
+Function that for recursive grep in R to search in entire directory tree, returns grep by file that matches pattern. 
+
+```r
+#search computer
+  grepDir(pattern = 'gsub',path = '.',value=TRUE,recursive = T)
+
+$`./R/makeImport.R`
+[1] "  names(s1)=gsub('\\\\\\\\b','',names(s1))"                                                           
+[2] "      y=gsub('[\\\\\",(]','',unlist(stringr::str_extract_all(x,pattern=paste0(nm,'(.*?)\\\\('))))"    
+[3] "    out=gsub('\\\\$.*','',out)"                                                                       
+[4] "      ret=paste0(\"#' @importFrom \",gsub('::',' ',nm),gsub(nm,'',paste(unique(out),collapse = ' ')))"
+[5] "        if(length(out)>=cut) ret=paste0(\"#' @import \",gsub('::','',nm))"                            
+[6] "    pkgN=gsub(':.*','',pkg)"                                                                          
+[7] "    ret=paste0('importFrom(',gsub('::',',',pkg),')')"                                                 
+[8] "          sprintf('import(%s)',unique(gsub(':.*','',x))) "                                            
+[9] "          paste0('importFrom(',gsub('::',',',grep(x,pkg,value=T)),')')"                               
+[10] "    ret=unique(gsub('::(.*?)$','',unlist(pkg)))"                                                      
+
+$`./R/runStanGit.R`
+[1] "    #strsplit(gsub('\\\\r','',RCurl::getURL(code.loc)[1]),'\\\\n')[[1]]"                                                                            
+[2] "  keep.files=gsub(' ','',unlist(lapply(strsplit(r.code[which(grepl('stan\\\\(',r.code))],'<-'),'[',1)))"                                            
+[3] "  r.code=gsub('print','#print',r.code)"                                                                                                             
+[4] "  r.code=gsub('pairs','#pairs',r.code)  "                                                                                                           
+[5] "      r.code[stan.find[i]]=gsub(substr(r.code[stan.find[i]],x[1],x[2]),strip.path(substr(r.code[stan.find[i]],x[1]+1,x[2]-1)),r.code[stan.find[i]])"
+
+$`./R/setwdURL.R`
+[1] "  urlPath=gsub(r.file,'',path)"                         
+[2] "  url.loc=gsub('master(.*?)$','',path)"                 
+[3] "  dat.loc=gsub(paste0(url.loc,'master/'),'',urlPath)"   
+[4] "  r.script=gsub('\\\\s+','',r.script)"                  
+[5] "  str.change=basename(gsub('[\\\\\"]','',str.old))"     
+[6] "      file.name=gsub(' ','',strsplit(x,'<-|=')[[1]][1])"
+[7] "      gsub(str.old,file.name,x) 
+
+#search github
+  grepDir(pattern = 'importFrom',path = c('yonicd/YSmisc','R'),value=TRUE)
+```
 
 ## list.files_github
 Return raw paths to files in github directory. Useful when combined with readLines and the first two functions.
@@ -49,8 +104,11 @@ Return raw paths to files in github directory. Useful when combined with readLin
 ```r
 list.files_github('yonicd/YSmisc','R')
 [1] "https://raw.githubusercontent.com/yonicd/YSmisc/master/R/grepDir.R"        
-[2] "https://raw.githubusercontent.com/yonicd/YSmisc/master/R/listFilesGithub.R"
-[3] "https://raw.githubusercontent.com/yonicd/YSmisc/master/R/makeImport.R"
+[2] "https://raw.githubusercontent.com/yonicd/YSmisc/master/R/importAddin.R"    
+[3] "https://raw.githubusercontent.com/yonicd/YSmisc/master/R/listFilesGithub.R"
+[4] "https://raw.githubusercontent.com/yonicd/YSmisc/master/R/makeImport.R"     
+[5] "https://raw.githubusercontent.com/yonicd/YSmisc/master/R/runStanGit.R"     
+[6] "https://raw.githubusercontent.com/yonicd/YSmisc/master/R/setwdURL.R"
 
 list.files_github('tidyverse/ggplot2','R')%>%head(.,20)
  [1] "https://raw.githubusercontent.com/tidyverse/ggplot2/master/R/aaa-.r"                   

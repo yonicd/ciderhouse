@@ -1,4 +1,4 @@
-# Package development and maintenance utility functions that I find useful
+# Random ideas that don't have a home yet
 
 ## makeOxygen
 Function that returns scaffolding for [roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html) documentation including title, description, import and other fields populated with information scraped from the function script. 

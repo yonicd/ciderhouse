@@ -5,6 +5,8 @@ Function that returns scaffolding for [roxygen2](https://cran.r-project.org/web/
 
 The addin `createOxygen` uses highlighted text in the active document of  RStudio as the object argument.
 
+![](https://raw.githubusercontent.com/yonicd/YSmisc/master/Miscellaneous/makeOxygen.gif)
+
 ```r
 
 > makeOxygen(lm)

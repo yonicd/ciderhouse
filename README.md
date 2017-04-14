@@ -3,6 +3,8 @@
 ## makeOxygen
 Function that returns scaffolding for [roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html) documentation including title, description, import and other fields.
 
+The addin `createOxygen` uses highlighted text in the active document of  RStudio as the object argument.
+
 ```r
 
 > makeOxygen(lm)
@@ -71,7 +73,7 @@ you can write normally your script with the namespace calls and in the end run t
 
 The function is written to work on single files or whole dirs (like in a package R subdir).
 
-The addin uses the active document in the RStudio editor console as the file argument.
+The addin `createImport` uses the active document in the RStudio editor console as the file argument.
 
 ```r
 makeImport(file=list.files_github('yonicd/YSmisc','R'),print = T,format = 'oxygen')

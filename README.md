@@ -157,10 +157,10 @@ Imports: rstudioapi,rvest,xml2,stringr,utils,RCurl
 ```
 
 ## grepDir
-Function that for recursive grep in R to search in entire directory tree, returns grep by file that matches pattern. 
+Function that applies a recursive grep in R to search in entire directory tree on a local path or in github, returns grep by file that matches pattern. 
 
+### Local path
 ```r
-#search computer
   grepDir(pattern = 'gsub',path = '.',value=TRUE,recursive = T)
 
 $`./R/makeImport.R`
@@ -190,8 +190,11 @@ $`./R/setwdURL.R`
 [5] "  str.change=basename(gsub('[\\\\\"]','',str.old))"     
 [6] "      file.name=gsub(' ','',strsplit(x,'<-|=')[[1]][1])"
 [7] "      gsub(str.old,file.name,x) 
+```
 
-#search github
+### Github
+
+```r
   grepDir(pattern = 'importFrom',path = c('yonicd/YSmisc','R'),value=TRUE)
 $`R/grepDir.R`
 [1] "#' grepDir(pattern = 'importFrom',path = c(repo='yonicd/YSmisc',subdir='R'),value=TRUE)"

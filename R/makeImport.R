@@ -1,6 +1,6 @@
 #' @title Scrape R script to create namespace calls
 #' @description Scrape r script to create namespace calls for roxygen, namespace or description files
-#' @param file character connection to pass to readLines, can be file path, directory path, url path
+#' @param script character connection to pass to readLines, can be file path, directory path, url path
 #' @param cut integer number of functions to write as importFrom until switches to import
 #' @param print boolean print output to console, default FALSE
 #' @param format character the output format must be in c('oxygen','namespace','description'), default oxygen
@@ -11,8 +11,15 @@
 #' @export
 #' @importFrom stringr str_extract_all
 #' @importFrom utils installed.packages
-makeImport=function(file,cut=NULL,print=FALSE,format='oxygen'){
+makeImport=function(script,cut=NULL,print=TRUE,format='oxygen'){
   rInst<-paste0(row.names(utils::installed.packages()),'::')
+  
+  if(inherits(script,'function')){
+    file<-tempfile()
+    capture.output(print(script),file = file) 
+  }else{
+    file=script
+  }
   
   pkg=sapply(file,function(f){
   x<-readLines(f,warn = F)
@@ -37,7 +44,9 @@ makeImport=function(file,cut=NULL,print=FALSE,format='oxygen'){
     }
     return(out)
   })
-  if(format=='oxygen') writeLines(paste(' ',f,paste(ret,collapse='\n'),sep = '\n'))
+  if(format=='oxygen'){
+    if(print) writeLines(paste(' ',f,paste(ret,collapse='\n'),sep = '\n')) 
+  }
   return(ret)
   })
   
@@ -69,5 +78,7 @@ makeImport=function(file,cut=NULL,print=FALSE,format='oxygen'){
     if(print) writeLines(retWrite)
   }
   
-  invisible(ret)
+  if(inherits(script,'function')) unlink(file)
+  
+  invisible(paste0(ret,collapse = '\n'))
 }

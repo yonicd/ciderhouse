@@ -4,10 +4,10 @@
 \alias{makeImport}
 \title{Scrape R script to create namespace calls}
 \usage{
-makeImport(file, cut = NULL, print = FALSE, format = "oxygen")
+makeImport(script, cut = NULL, print = TRUE, format = "oxygen")
 }
 \arguments{
-\item{file}{character connection to pass to readLines, can be file path, directory path, url path}
+\item{script}{character connection to pass to readLines, can be file path, directory path, url path}
 
 \item{cut}{integer number of functions to write as importFrom until switches to import}
 

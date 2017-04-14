@@ -1,12 +1,12 @@
 #' @importFrom RCurl getURL
 RunStanGit=function(url.loc,dat.loc.in,r.file,flag=T){
-
+  
   dat.loc=paste0(url.loc,dat.loc.in)
   code.loc=paste0(dat.loc,r.file)
   
   #Read R code ----  
   r.code=readLines(code.loc)
-    #strsplit(gsub('\\r','',RCurl::getURL(code.loc)[1]),'\\n')[[1]]
+  #strsplit(gsub('\\r','',RCurl::getURL(code.loc)[1]),'\\n')[[1]]
   
   #Rewrite paths for source and read commands to url path ----
   for(i in which(grepl('read|source',r.code))) r.code[i]=setwd.url(r.code[i])

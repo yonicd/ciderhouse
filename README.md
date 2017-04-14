@@ -1,5 +1,25 @@
 # Package development and maintenance utility functions that I find useful
 
+## makeOxygen
+Function that returns scaffolding for [roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html) documentation including title, description, import and other fields.
+
+```r
+> makeOxygen(colourpicker:::colourPickerGadget,add_fields = c('export','details','examples'))
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param numCols PARAM_DESCRIPTION, Default: 3
+#' @export
+#' @details DETAILS
+#' @examples
+#' EXAMPLE1 
+#' @importFrom colourpicker colourInput updateColourInput
+#' @importFrom grDevices colours
+#' @importFrom shiny addResourcePath dialogViewer runGadget shinyApp
+#' @importFrom shinyjs useShinyjs extendShinyjs toggleState disable onclick alert
+#' @importFrom utils packageVersion
+```
+
+
 ## makeImport
 Function that scrapes an R file or directory of R files to create calls for namespace import. 
 

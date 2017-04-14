@@ -3,6 +3,7 @@
 export(grepDir)
 export(ls_github)
 export(makeImport)
+export(makeOxygen)
 export(setwd.url)
 importFrom(RCurl,getURL)
 importFrom(httr,GET)

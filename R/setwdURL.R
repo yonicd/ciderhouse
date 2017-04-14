@@ -23,7 +23,7 @@ setwd.url=function(path){
       eval(parse(text=sprintf("download.file('%s%s,%s,quiet = T,method='curl')",urlPath,basename(str.new),file.name)))
       gsub(str.old,file.name,x)      
     },x=y,str.old=str.old,USE.NAMES = F)
-      
+    
   }
   
   r.script[yInd]=newScript

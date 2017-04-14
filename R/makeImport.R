@@ -22,9 +22,9 @@ makeImport=function(script,cut=NULL,print=TRUE,format='oxygen'){
   
   pkg=sapply(file,function(f){
   x<-readLines(f,warn = F)
+  x=gsub('^\\s+','',x)
   x=x[!grepl('^#',x)]
-  x=x[!grepl('<bytecode:',x)]
-  x=x[!grepl('<environment:',x)]
+  x=x[!grepl('^<',x)]
   s0=sapply(paste0('\\b',rInst),grep,x=x,value=TRUE)
   s1=s0[which(sapply(s0,function(y) length(y)>0))]
   names(s1)=gsub('\\\\b','',names(s1))
@@ -32,10 +32,12 @@ makeImport=function(script,cut=NULL,print=TRUE,format='oxygen'){
     out=unlist(lapply(s1[[nm]],function(x){
       y=gsub('[\\",\\(\\)]','',unlist(regmatches(x,gregexpr(paste0(nm,'(.*?)[\\)\\(,]'),x))))
       names(y)=NULL
+      if(any(y%in%paste0(nm,c('"',"'")))) y=NULL
       y 
     }))
     out=gsub('\\$.*','',out)
     out=unique(out)
+    
     if(format=='oxygen'){
       ret=paste0("#' @importFrom ",gsub('::',' ',nm),gsub(nm,'',paste(unique(out),collapse = ' ')))
       if(!is.null(cut)){

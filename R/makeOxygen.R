@@ -53,6 +53,10 @@ makeOxygen=function(obj,add_default=TRUE, add_fields=NULL,print=TRUE,...){
     importList$print=FALSE
     import=do.call('makeImport',importList)
     if(import=='list()') import=''
+    
+    cutOFF=ifelse('cut'%in%names(importList),importList$cut,3)
+    if('seealso'%in%add_fields) header_add=c(header_add,seealso=paste0(makeSeeAlso(obj,cutOFF=cutOFF),'\n',collapse='\n'))
+    
     str_out='PARAM_DESCRIPTION'
     
     out=sapply(formals(obj),function(y){

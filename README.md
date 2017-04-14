@@ -7,8 +7,9 @@ The addin `createOxygen` uses highlighted text in the active document of  RStudi
 
 ![](https://raw.githubusercontent.com/yonicd/YSmisc/master/Miscellaneous/makeOxygen.gif)
 
-```r
+### Basic Usage
 
+```r
 > makeOxygen(lm)
 #' @title FUNCTION_TITLE
 #' @description FUNCTION_DESCRIPTION
@@ -27,7 +28,13 @@ The addin `createOxygen` uses highlighted text in the active document of  RStudi
 #' @param offset PARAM_DESCRIPTION
 #' @param ... PARAM_DESCRIPTION
 #' @importFrom stats model.frame
+```
 
+### Add_fields
+
+Control over which roxygen2 fields are added to the header is passed through `add_fields`. Currently the fields: concept, keyword, usage, export, details, examples, source, and seealso are supported.
+
+```r
 > makeOxygen(colourpicker:::colourPickerGadget,add_fields = c('export','details','examples'))
 #' @title FUNCTION_TITLE
 #' @description FUNCTION_DESCRIPTION
@@ -41,9 +48,12 @@ The addin `createOxygen` uses highlighted text in the active document of  RStudi
 #' @importFrom shiny addResourcePath dialogViewer runGadget shinyApp
 #' @importFrom shinyjs useShinyjs extendShinyjs toggleState disable onclick alert
 #' @importFrom utils packageVersion
+```
+### Cut
 
-#passing cut to makeImport to return only import for packages that call more than three functions
+Passing `cut` to makeOxygen to return `import [package]` instead of `importFrom [package] fun1 fun2 ...` for packages that call more than the value assigned to cut
 
+```r
 > makeOxygen(colourpicker:::colourPickerGadget,add_fields = c('export','details','examples'),cut=3)
 #' @title FUNCTION_TITLE
 #' @description FUNCTION_DESCRIPTION
@@ -57,6 +67,33 @@ The addin `createOxygen` uses highlighted text in the active document of  RStudi
 #' @import shiny
 #' @import shinyjs
 #' @importFrom utils packageVersion
+```
+
+### Seealso
+
+When calling `addfields('seealso')` the function will give a guess of which functions to add conditional on what value cut it set to. That is any function returned with importFrom will also have a seealso link created for it
+
+```r
+> makeOxygen(shinyHeatmaply:::heatmaplyGadget,cut=3,add_fields = 'seealso')
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param obj PARAM_DESCRIPTION
+#' @param plotHeight PARAM_DESCRIPTION, Default: 800
+#' @param viewerType PARAM_DESCRIPTION, Default: 'paneViewer'
+#' @param ... PARAM_DESCRIPTION
+#' @seealso
+#'  \code{\link[DT]{dataTableOutput}},\code{\link[DT]{renderDataTable}}
+#'  \code{\link[tools]{file_path_sans_ext}}
+#'  \code{\link[xtable]{xtable}}
+#' @importFrom DT dataTableOutput renderDataTable
+#' @import heatmaply
+#' @import htmltools
+#' @import plotly
+#' @import shiny
+#' @import stats
+#' @importFrom tools file_path_sans_ext
+#' @importFrom xtable xtable
+
 ```
 
 

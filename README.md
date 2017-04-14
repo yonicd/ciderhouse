@@ -114,6 +114,8 @@ The function is written to work on single files or whole dirs (like in a package
 
 The addin `createImport` uses the active document in the RStudio editor console as the file argument.
 
+### roxygen2
+
 ```r
 makeImport(file=list.files_github('yonicd/YSmisc','R'),print = T,format = 'oxygen')
  
@@ -137,6 +139,8 @@ https://raw.githubusercontent.com/yonicd/YSmisc/master/R/setwdURL.R
 #' @importFrom stringr str_extract
 ```
 
+### NAMESPACE
+
 ```r
 makeImport(list.files_github('yonicd/YSmisc','R'),print = T,format = 'namespace')
 
@@ -149,6 +153,8 @@ importFrom(stringr,str_extract_all)
 importFrom(utils,installed.packages)
 importFrom(xml2,read_html)
 ```
+
+### DESCRIPTION
 
 ```r
 makeImport(list.files_github('yonicd/YSmisc','R'),print = T,format = 'description')

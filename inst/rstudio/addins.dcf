@@ -1,4 +1,9 @@
 Name: createImport
-Description: create 
+Description: Create scaffolding for roxygen2 import lines 
 Binding: importAddin
+Interactive: false
+
+Name: createOxygen
+Description: Create scaffolding for roxygen2 header
+Binding: oxygenAddin
 Interactive: false

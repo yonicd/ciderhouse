@@ -4,6 +4,26 @@
 Function that returns scaffolding for [roxygen2](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html) documentation including title, description, import and other fields.
 
 ```r
+
+> makeOxygen(lm)
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param formula PARAM_DESCRIPTION
+#' @param data PARAM_DESCRIPTION
+#' @param subset PARAM_DESCRIPTION
+#' @param weights PARAM_DESCRIPTION
+#' @param na.action PARAM_DESCRIPTION
+#' @param method PARAM_DESCRIPTION, Default: 'qr'
+#' @param model PARAM_DESCRIPTION, Default: TRUE
+#' @param x PARAM_DESCRIPTION, Default: FALSE
+#' @param y PARAM_DESCRIPTION, Default: FALSE
+#' @param qr PARAM_DESCRIPTION, Default: TRUE
+#' @param singular.ok PARAM_DESCRIPTION, Default: TRUE
+#' @param contrasts PARAM_DESCRIPTION, Default: NULL
+#' @param offset PARAM_DESCRIPTION
+#' @param ... PARAM_DESCRIPTION
+#' @importFrom stats model.frame
+
 > makeOxygen(colourpicker:::colourPickerGadget,add_fields = c('export','details','examples'))
 #' @title FUNCTION_TITLE
 #' @description FUNCTION_DESCRIPTION
@@ -16,6 +36,22 @@ Function that returns scaffolding for [roxygen2](https://cran.r-project.org/web/
 #' @importFrom grDevices colours
 #' @importFrom shiny addResourcePath dialogViewer runGadget shinyApp
 #' @importFrom shinyjs useShinyjs extendShinyjs toggleState disable onclick alert
+#' @importFrom utils packageVersion
+
+#passing cut to makeImport to return only import for packages that call more than three functions
+
+> makeOxygen(colourpicker:::colourPickerGadget,add_fields = c('export','details','examples'),cut=3)
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param numCols PARAM_DESCRIPTION, Default: 3
+#' @export
+#' @details DETAILS
+#' @examples
+#' EXAMPLE1 
+#' @importFrom colourpicker colourInput updateColourInput
+#' @importFrom grDevices colours
+#' @import shiny
+#' @import shinyjs
 #' @importFrom utils packageVersion
 ```
 

@@ -24,12 +24,14 @@ makeImport=function(script,cut=NULL,print=TRUE,format='oxygen'){
   pkg=sapply(file,function(f){
   x<-readLines(f,warn = F)
   x=x[!grepl('^#',x)]
+  x=x[!grepl('<bytecode:',x)]
+  x=x[!grepl('<environment:',x)]
   s0=sapply(paste0('\\b',rInst),grep,x=x,value=TRUE)
   s1=s0[which(sapply(s0,function(y) length(y)>0))]
   names(s1)=gsub('\\\\b','',names(s1))
   ret=sapply(names(s1),function(nm){
     out=unlist(lapply(s1[[nm]],function(x){
-      y=gsub('[\\",(]','',unlist(stringr::str_extract_all(x,pattern=paste0(nm,'(.*?)\\('))))
+      y=gsub('[\\",\\(\\)]','',unlist(stringr::str_extract_all(x,pattern=paste0(nm,'(.*?)[\\)\\(,]'))))
       names(y)=NULL
       y 
     }))

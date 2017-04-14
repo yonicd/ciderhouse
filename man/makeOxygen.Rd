@@ -4,12 +4,14 @@
 \alias{makeOxygen}
 \title{Creates scaffolding of roxygen header from function script}
 \usage{
-makeOxygen(obj, add_default = TRUE, add_fields = NULL, ...)
+makeOxygen(obj, add_default = TRUE, add_fields = NULL, print = TRUE, ...)
 }
 \arguments{
 \item{obj}{function or name of function}
 
 \item{add_fields}{character vector to add additional roxygen fields, Default: NULL}
+
+\item{print}{logical write output to console, Default: TRUE}
 
 \item{add_defaults}{logical to add defaults values to the end of the PARAM fields}
 }

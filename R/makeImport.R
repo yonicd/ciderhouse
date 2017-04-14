@@ -9,7 +9,6 @@
 #' makeImport(ls_github('yonicd/YSmisc','R'),print = T,format = 'namespace')
 #' makeImport(ls_github('yonicd/YSmisc','R'),print = T,format = 'description')
 #' @export
-#' @importFrom stringr str_extract_all
 #' @importFrom utils installed.packages
 makeImport=function(script,cut=NULL,print=TRUE,format='oxygen'){
   rInst<-paste0(row.names(utils::installed.packages()),'::')
@@ -31,7 +30,7 @@ makeImport=function(script,cut=NULL,print=TRUE,format='oxygen'){
   names(s1)=gsub('\\\\b','',names(s1))
   ret=sapply(names(s1),function(nm){
     out=unlist(lapply(s1[[nm]],function(x){
-      y=gsub('[\\",\\(\\)]','',unlist(stringr::str_extract_all(x,pattern=paste0(nm,'(.*?)[\\)\\(,]'))))
+      y=gsub('[\\",\\(\\)]','',unlist(regmatches(x,gregexpr(paste0(nm,'(.*?)[\\)\\(,]'),x))))
       names(y)=NULL
       y 
     }))

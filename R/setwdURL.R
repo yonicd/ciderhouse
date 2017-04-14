@@ -10,7 +10,7 @@ setwd.url=function(path){
   r.script=r.script[nchar(r.script)>0]
   yInd=grep('read|source',r.script)
   y=grep('read|source',r.script,value=T)
-  str.old=stringr::str_extract(y,'\\"(.*?)\\"')
+  str.old=regmatches(y,regexpr('\\"(.*?)\\"',y))
   str.change=basename(gsub('[\\"]','',str.old))
   
   if(grepl('source',y)){ 

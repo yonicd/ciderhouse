@@ -2,12 +2,7 @@
 
 export(grepDir)
 export(ls_github)
-export(makeImport)
-export(makeOxygen)
-export(makeSeeAlso)
 export(setwd.url)
 importFrom(RCurl,getURL)
 importFrom(httr,GET)
 importFrom(httr,content)
-importFrom(rstudioapi,getActiveDocumentContext)
-importFrom(utils,installed.packages)

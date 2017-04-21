@@ -18,7 +18,7 @@ Below is a short summary of the ranking of packages used in the repositories by 
 
 ![](https://raw.githubusercontent.com/yonicd/ciderhouse/master/gitLogs/git_ranks.png)
 
-The script to scrape the directories and the current json can be found in the gitLogs subdirectory.
+The script to scrape the directories and the current json (compressed as an Rdata file) can be found in the gitLogs subdirectory.
 
 ## grepDir
 Function that applies a recursive grep in R to search in entire directory tree on a local path or in github, returns grep by file that matches pattern. 

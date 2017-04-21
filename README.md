@@ -16,7 +16,7 @@ Hopefully this file will give answers to a few of those lingering questions of w
 
 Below is a short summary of the ranking of packages used in the repositories by depend, import and suggest
 
-![]()
+![](https://raw.githubusercontent.com/yonicd/ciderhouse/master/gitLogs/git_ranks.png)
 
 The script to scrape the directories and the current json can be found in the gitLogs subdirectory.
 

@@ -2,7 +2,7 @@
 
 export(grepDir)
 export(ls_github)
-export(setwd.url)
-importFrom(RCurl,getURL)
+export(setwd_github)
+export(source_github)
 importFrom(httr,GET)
 importFrom(httr,content)

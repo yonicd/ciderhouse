@@ -18,7 +18,7 @@ s=sapply(tr,function(x) if(x$mode!='040000') x$path)
 
 if(!is.null(subdir)){
   s=grep(paste0('^',subdir,'/'),s,value=TRUE)
-  g=grep('(/.*){2,}',s)
+  g=grep(sprintf('(/.*){%s,}',min(nchar(gsub('[^//]','',s)))+1),s)
   if(length(g)>0) if(!recursive) s=s[-g]
 }else{
   s=unlist(s)

@@ -4,14 +4,16 @@
 \alias{grepDir}
 \title{Recursive grep}
 \usage{
-grepDir(pattern, path, recursive = FALSE, ...)
+grepDir(pattern, path, recursive = FALSE, padding = 5, ...)
 }
 \arguments{
-\item{pattern}{character string containing a regular expression}
+\item{pattern}{character, string containing a regular expression}
 
-\item{path}{path to search, see details}
+\item{path}{character, path to search, see details}
 
-\item{recursive}{logical. Should the listing recurse into directories? passed to list.files}
+\item{recursive}{logical, Should the listing recurse into directories? passed to list.files, Default: FALSE}
+
+\item{padding}{integer, number of rows to return in addition to the query line, Default: 5}
 
 \item{...}{arguments passed to grep}
 }

@@ -1,4 +1,4 @@
-Package: YSmisc
+Package: ciderhouse
 Type: Package
 Title: Miscellaneous functions
 Version: 0.0.1
@@ -12,8 +12,8 @@ Imports:
   stringr,
   utils
 License: GPL-2 | GPL-3
-URL: https://github.com/yonicd/misc
-BugReports: https://github.com/yonicd/misc/issues
+URL: https://github.com/yonicd/ciderhouse
+BugReports: https://github.com/yonicd/ciderhouse/issues
 LazyData: true
 NeedsCompilation: no
 Packaged: 2017-01-31 14:00:00 UTC; Yoni

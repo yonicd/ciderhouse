@@ -1,15 +1,23 @@
-#' @importFrom RCurl getURL
-RunStanGit=function(url.loc,dat.loc.in,r.file,flag=T){
-  
-  dat.loc=paste0(url.loc,dat.loc.in)
-  code.loc=paste0(dat.loc,r.file)
-  
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param repo PARAM_DESCRIPTION
+#' @param subdir PARAM_DESCRIPTION
+#' @param r.file PARAM_DESCRIPTION
+#' @param flag PARAM_DESCRIPTION, Default: TRUE
+#' @examples 
+#' repo='stan-dev/example-models'
+#' subdir='ARM/Ch.10'
+#' r.file='10.6_IVinaRegressionFramework.R'
+#' source_github(repo,subdir,r.file)
+#' @export
+source_github=function(repo,subdir,r.file,flag=TRUE){
+
   #Read R code ----  
   r.code=readLines(code.loc)
   #strsplit(gsub('\\r','',RCurl::getURL(code.loc)[1]),'\\n')[[1]]
   
   #Rewrite paths for source and read commands to url path ----
-  for(i in which(grepl('read|source',r.code))) r.code[i]=setwd.url(r.code[i])
+  for(i in which(grepl('read|source',r.code))) r.code[i]=setwd_github(r.code[i])
   stan.find=which(grepl('stan\\(',r.code))
   to.unlink=rep(NA,length(stan.find))
   
@@ -53,35 +61,3 @@ RunStanGit=function(url.loc,dat.loc.in,r.file,flag=T){
   return(list.out)
   #End of function ----
 }
-
-#example ----
-# url.loc='https://raw.githubusercontent.com/stan-dev/example-models/master/ARM/'
-# ex=data.frame(r.file=c('10.4_LackOfOverlapWhenTreat.AssignmentIsUnknown.R',
-#                        '10.5_CasualEffectsUsingIV.R',
-#                        '10.6_IVinaRegressionFramework.R', #sourcing another file
-#                        '3.1_OnePredictor.R', #removing partial path to file
-#                        '8.4_PredictiveSimulationToCheckFitOfTimeSeriesModels.R'), #removing echo call from readlines
-#               stringsAsFactors = F)
-# 
-# ex$chapter=unlist(lapply(lapply(strsplit(ex$r.file,'[\\_]'),'[',1),function(x) paste('Ch',strsplit(x,'[\\.]')[[1]][1],sep='.')))
-# ex$example=unlist(lapply(lapply(strsplit(ex$r.file,'[\\_]'),'[',1),function(x) strsplit(x,'[\\.]')[[1]][2]))
-# 
-# a=dlply(ex%>%slice(c(3)),.(r.file),.fun=function(x) RunStanGit(url.loc,dat.loc=paste0(x$chapter,'/'),r.file=x$r.file),.progress = 'text')
-#
-# Functions to read output into nested list structure with data.frame in leaf
-# stan.sim.out=llply(a,.fun=function(m){
-#   llply(m,.fun=function(stan.out){
-#     x=attributes(stan.out)
-#     x1=llply(x$sim$samples,attributes)
-#     names(x1)=c(1:length(x1))
-#     df.model=ldply(x1,.fun=function(x) do.call('cbind',x$sampler_params)%>%data.frame%>%mutate(Iter=1:nrow(.)),.id="Chain")
-#     
-#     df.samples=stan.out@sim$samples
-#     names(df.samples)=c(1:length(df.samples))
-#     df.samples=ldply(df.samples,.fun = function(y) data.frame(y)%>%mutate(Iter=1:nrow(.)),.id = 'Chain')
-#     
-#     df.model%>%left_join(df.samples,by=c('Chain','Iter'))
-#   })
-# } )
-# 
-# stan.sim.out.files=ldply(a,.fun=function(x) data.frame(stan.obj.output=names(x)))

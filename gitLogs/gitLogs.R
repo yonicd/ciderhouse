@@ -36,42 +36,46 @@ raw_json<-as.data.frame(do.call('cbind',fromJSON('http://rpkg.gepuro.net/downloa
 ## unify and save to disk ----
 #JSONS=unlist(JSONS,recursive=F)
 #save(JSONS,file='gitLogs.rdata')
-#write_json(JSONS,path = 'git_descriptions.json')
 
-## unpack to list ----
-lists=lapply(JSONS,fromJSON)
+#cleaned up original JSONS file rd files using clean_description.R, resaved JSONS to
+# gitLogs.rdata
 
-## reshape to dataframe ----
-df=plyr::ldply(sapply(lists,'[',1),function(y){
-  out=plyr::ldply(y[c('Depends','Imports','Suggests')],
-                  function(x){
-                    val=NULL
-                    if(is.character(x)){
-                      if(length(x)>0) val=gsub('\r','',strsplit(x,'[,]')[[1]])
-                    }
-                    data.frame(value=val,stringsAsFactors = FALSE)
-                  },.id='field'
-  )
-  if(nrow(out)>0) out=data.frame(package=gsub('\r','',y['Package']),out,stringsAsFactors = FALSE)
-  out
-},.id='repo',.progress = 'text')%>%
-  mutate(value=gsub('\\((.*?)\\)|\\((.*?)$','',value),
-         value=gsub('^\\s+|\\s+$','',value))%>%
-  filter(!grepl('\\bR\\b|^methods|^$',value)&!is.na(value))
+load('gitLogs/gitLogs.rdata')
 
-repoSplit=data.frame(repo=df$repo,do.call('rbind',strsplit(df$repo,'/')),stringsAsFactors = FALSE)%>%distinct()
-names(repoSplit)[c(2,3)]=c('user_name','repo_name')
-df=df%>%left_join(repoSplit,by='repo')
-df=df[names(df)[c(5,6,1,3,2,4)]]
+#get list from CRAN ----
+require("tools")
+getPackagesWithTitle <- function() {
+  contrib.url(getOption("repos")["CRAN"], "source") 
+  description <- sprintf("%s/web/packages/packages.rds",getOption("repos")["CRAN"])
+  con <- if(substring(description, 1L, 7L) == "file://") {
+    file(description, "rb")
+  } else {
+    url(description, "rb")
+  }
+  on.exit(close(con))
+  db <- readRDS(gzcon(con))
+  rownames(db) <- NULL
+  
+  db[, c("Package", "Title")]
+}
 
-## summarize ----
-ranking=df%>%count(field,value)%>%arrange(desc(n))%>%
-  do(.,cbind(rank=1:nrow(.),.))%>%
-  mutate(value=sprintf('%s (%s)',value,n))%>%
-  reshape2::dcast(rank~field,value.var='value')
+cran_current=getPackagesWithTitle()
 
-df%>%count(field,value)%>%arrange(desc(n))%>%
-  do(.,cbind(rank=1:nrow(.),.))%>%
-  do(.,head(.))%>%
-  mutate(value=sprintf('%s (%s)',value,n))%>%
-  reshape2::dcast(rank~field,value.var='value')
+# created data.frame from jsons----
+df=plyr::mdply(JSONS,.fun = function(x) {data.frame(fromJSON(x)[[1]],stringsAsFactors = FALSE)},.progress = 'text')
+df$ON_CRAN=ifelse(df$Package%in%cran_current[,1],'CRAN_GITHUB','ONLY_GITHUB')
+df1=df%>%dplyr::select(X1,ON_CRAN,Package,Title,Author,Description,Depends,Imports,Suggests,LinkingTo)%>%reshape2::melt(.,id= head(names(.),-4))%>%dplyr::filter(!is.na(value))
+
+# clean a bit more....
+df2=df1%>%plyr::ddply(head(names(df1),-1),.fun=function(x){
+  data.frame(value=gsub('^\\s+|\\s+$|\\s+\\((.*?)\\)|\\((.*?)\\)|\\b.1\\b|^s: ','',strsplit(x$value,',')[[1]]),stringsAsFactors = FALSE)
+},.progress = 'text')%>%filter(!grepl(':',value))
+
+# reshape for rankings
+df3<-df2%>%plyr::dlply(.variables = c('ON_CRAN'),.fun=function(df){ df%>%dplyr::count(variable,value)%>%dplyr::arrange(variable,desc(n))%>%
+    dplyr::group_by(variable)%>%dplyr::do(.,cbind(rank=1:nrow(.),.))%>%
+    dplyr::mutate(value=sprintf('%s (%s)',value,n))%>%
+    reshape2::dcast(rank~variable,value.var='value')})
+
+#print top 10
+lapply(df3,function(x) head(x,10))

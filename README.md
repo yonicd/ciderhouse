@@ -1,5 +1,6 @@
 # Orphan ideas that don't have a home yet
 
+
 ## gitLogs
 
 On Twitter I saw a [bot](https://twitter.com/gepuro) that was tracking my R package activity when I created a new repo with a package in it. It pointed to a list of R packages on [github](http://rpkg.gepuro.net/).

@@ -49,7 +49,7 @@ reshape_description=function(jsons,jsons.names){
   
   a$repo=jsons.names[as.numeric(a$X1)]
   
-  a1=a%>%dplyr::select(X1,ON_CRAN,repo,Package,Title,Author,Description,Depends,Imports,Suggests,LinkingTo)%>%
+  a1=a%>%dplyr::select(X1,ON_CRAN,repo,Package,Title,Author,Description,VignetteBuilder,BugReports,URL,Depends,Imports,Suggests,LinkingTo)%>%
     reshape2::melt(.,id= head(names(.),-4))%>%dplyr::filter(!is.na(value))
   
   # clean a bit more....

@@ -4,7 +4,7 @@
 \alias{grepDir}
 \title{Recursive grep}
 \usage{
-grepDir(pattern, path, recursive = FALSE, padding = 5, ...)
+grepDir(pattern, path, recursive = FALSE, padding = 0, ...)
 }
 \arguments{
 \item{pattern}{character, string containing a regular expression}
@@ -35,5 +35,5 @@ In this case of the recursive parameter takes over-rides over the list parameter
 }
 \examples{
 grepDir(pattern = 'gsub',path = '.',value=TRUE,recursive = T)
-grepDir(pattern = 'importFrom',path = c(repo='yonicd/YSmisc',subdir='R'),value=TRUE)
+grepDir(pattern = 'importFrom',path = c(repo='yonicd/ciderhouse',subdir='R'),value=TRUE)
 }

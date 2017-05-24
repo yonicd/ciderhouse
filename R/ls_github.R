@@ -9,11 +9,11 @@
 #' #geom-boxplot.r
 #' readLines(l[42])
 #' @export
-ls_github=function(repo,subdir=NULL,recursive=FALSE){
+ls_github=function(repo,ref='master',subdir=NULL,recursive=FALSE){
 
 r=''
 if(!is.null(subdir)) r='?recursive=1'  
-tr=httr::content(httr::GET(sprintf('https://api.github.com/repos/%s/git/trees/master%s',repo,r)))$tree
+tr=httr::content(httr::GET(sprintf('https://api.github.com/repos/%s/git/trees/%s%s',repo,ref,r)))$tree
 s=sapply(tr,function(x) if(x$mode!='040000') x$path)
 
 if(!is.null(subdir)){
@@ -23,5 +23,5 @@ if(!is.null(subdir)){
 }else{
   s=unlist(s)
 } 
-sprintf('https://raw.githubusercontent.com/%s/master/%s',repo,s)
+sprintf('https://raw.githubusercontent.com/%s/%s/%s',repo,ref,s)
 }

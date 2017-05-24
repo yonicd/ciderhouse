@@ -4,7 +4,7 @@
 \alias{ls_github}
 \title{List files of a github repository subdirectory}
 \usage{
-ls_github(repo, subdir = NULL, recursive = FALSE)
+ls_github(repo, ref = "master", subdir = NULL, recursive = FALSE)
 }
 \arguments{
 \item{repo}{character Repository address in the format username/repo}

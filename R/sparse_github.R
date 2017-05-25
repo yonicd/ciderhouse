@@ -1,5 +1,5 @@
-#' @title Create a sparse ghap repository
-#' @description Create a ghap repository that fetches only specified subdirectories and file types
+#' @title Create a sparse git repository
+#' @description Create a git repository that fetches only specified subdirectories and file types
 #' @param repo_url character, repository url path
 #' @param repo character, path on local disk that repository is cloned to
 #' @param dirs character, vector of repository subdirectories to fetch

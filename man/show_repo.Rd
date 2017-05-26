@@ -7,15 +7,22 @@
 show_repo(path = getwd(), layout = "collapse")
 }
 \arguments{
-\item{path}{character, Path to root directory of git repository, Default: setwd()}
+\item{path}{character, Path to root directory of git repository or a name of a github repository, Default: setwd()}
 
 \item{layout}{character, Layout of d3Tree output collapse, cartesian, radial Default: 'collapse'}
 }
 \value{
-nothing
+data.frame
 }
 \description{
-After adding a remote visually inpsect the directory structure of it before fetching/pulling
+Visually inpsect the directory structure of it before cloning/fetching/pulling
+}
+\details{
+By default path assumes a local address, if path is a valid repository name eg 'tidyverse/glue' 
+then the pattern is checked on the specified pulic github repository
+}
+\examples{
+show_repo('tidyverse/glue')
 }
 \seealso{
 \code{\link[d3Tree]{d3tree}}

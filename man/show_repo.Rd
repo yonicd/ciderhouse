@@ -4,12 +4,10 @@
 \alias{show_repo}
 \title{Visually inspect structure of git repository before initial fetch}
 \usage{
-show_repo(layout = "collapse", update_archive = FALSE)
+show_repo(layout = "collapse")
 }
 \arguments{
 \item{layout}{charaacter, Layout of d3Tree output collapse, cartesian, radial Default: 'collapse'}
-
-\item{update_archive}{boolean, update the archive file, Default: FALSE}
 }
 \value{
 nothing

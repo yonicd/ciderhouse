@@ -10,7 +10,7 @@
 show_repo <- function(layout='collapse'){
   path <- system('git ls-tree -r HEAD --name-only',intern=TRUE)
   x <- lapply(strsplit(path, "/"), function(z) as.data.frame(t(z)))
-  x <- plyr::rbind.fill(x)%>%mutate_if(is.factor,as.character)
+  x <- plyr::rbind.fill(x)
   x$depth <- apply(x,1,function(y) sum(!is.na(y)))
   d3Tree::d3tree(list(root = d3Tree::df2tree(rootname='archive',struct=x),layout = layout))
   #invisible(x)

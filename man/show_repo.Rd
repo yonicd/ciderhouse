@@ -4,10 +4,12 @@
 \alias{show_repo}
 \title{Visually inspect structure of git repository before initial fetch}
 \usage{
-show_repo(path = getwd(), layout = "collapse")
+show_repo(path = getwd(), gh_branch = "master", layout = "collapse")
 }
 \arguments{
 \item{path}{character, Path to root directory of git repository or a name of a github repository, Default: setwd()}
+
+\item{gh_branch}{character, alias of the github branch to retrieve directory structure, Default: 'master'}
 
 \item{layout}{character, Layout of d3Tree output collapse, cartesian, radial Default: 'collapse'}
 }
@@ -23,6 +25,7 @@ then the pattern is checked on the specified pulic github repository
 }
 \examples{
 show_repo('tidyverse/glue')
+show_repo('tidyverse/glue',gh_branch='named_args')
 }
 \seealso{
 \code{\link[d3Tree]{d3tree}}

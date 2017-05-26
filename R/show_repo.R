@@ -21,7 +21,7 @@ show_repo <- function(path=getwd(),layout='collapse'){
   if(!dir.exists(path)){
     uri <- sprintf('https://github.com/%s.git',path)
     if (httr::http_error(uri))
-      stop(sprintf("github repo: %s not found"), uri)
+      stop(sprintf("github repo: %s not found", uri))
     pathout <- system(sprintf('svn ls %s/branches/master -R',uri),intern=TRUE)[-1]
   }else{
     setwd(tools::file_path_as_absolute(path))

@@ -9,7 +9,11 @@
 #' @seealso
 #'  \code{\link[d3Tree]{d3tree}}
 show_repo <- function(layout='collapse'){
-  system('git archive --format=tar HEAD | tar t > _archive_.txt')
+  if(.Platform$OS.type=='windows'){
+    shell('git archive --format=tar HEAD | tar t > _archive_.txt')
+  }else{
+    system('git archive --format=tar HEAD | tar t > _archive_.txt') 
+  }
   path<-readLines('_archive_.txt')
   system('rm _archive_.txt')
   x <- lapply(strsplit(path, "/"), function(z) as.data.frame(t(z)))

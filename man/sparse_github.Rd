@@ -2,7 +2,7 @@
 % Please edit documentation in R/sparse_github.R
 \name{sparse_github}
 \alias{sparse_github}
-\title{Create a sparse ghap repository}
+\title{Create a sparse git repository}
 \usage{
 sparse_github(repo_url, repo, dirs, create = TRUE, append = TRUE,
   remote = "origin", branch = "master")
@@ -26,7 +26,7 @@ sparse_github(repo_url, repo, dirs, create = TRUE, append = TRUE,
 nothing
 }
 \description{
-Create a ghap repository that fetches only specified subdirectories and file types
+Create a git repository that fetches only specified subdirectories and file types
 }
 \examples{
 \donttest{

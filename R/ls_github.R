@@ -12,7 +12,7 @@
 ls_github=function(repo,ref='master',subdir=NULL,recursive=FALSE){
 
 r=''
-if(!is.null(subdir)) r='?recursive=1'  
+if(recursive) r='?recursive=1'  
 tr=httr::content(httr::GET(sprintf('https://api.github.com/repos/%s/git/trees/%s%s',repo,ref,r)))$tree
 s=sapply(tr,function(x) if(x$mode!='040000') x$path)
 

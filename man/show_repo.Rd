@@ -4,14 +4,16 @@
 \alias{show_repo}
 \title{Visually inspect structure of git repository before initial fetch}
 \usage{
-show_repo(path = getwd(), gh_branch = "master", layout = "collapse")
+show_repo(path = getwd(), branch = "master", layout = "collapse", ...)
 }
 \arguments{
-\item{path}{character, Path to root directory of git repository or a name of a github repository, Default: setwd()}
+\item{path}{character, Path to root directory of git repository or a name of a github/bitbucket repository, Default: setwd()}
 
-\item{gh_branch}{character, alias of the github branch to retrieve directory structure, Default: 'master'}
+\item{branch}{character, alias of the github/bitbucket branch to retrieve directory structure, Default: 'master'}
 
 \item{layout}{character, Layout of d3Tree output collapse, cartesian, radial Default: 'collapse'}
+
+\item{...}{parameters to pass to d3tree}
 }
 \value{
 data.frame

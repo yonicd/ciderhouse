@@ -1,8 +1,9 @@
 #' @title Visually inspect structure of git repository before initial fetch
 #' @description Visually inpsect the directory structure of it before cloning/fetching/pulling
-#' @param path character, Path to root directory of git repository or a name of a github repository, Default: setwd()
-#' @param gh_branch character, alias of the github branch to retrieve directory structure, Default: 'master'
+#' @param path character, Path to root directory of git repository or a name of a github/bitbucket repository, Default: setwd()
+#' @param branch character, alias of the github/bitbucket branch to retrieve directory structure, Default: 'master'
 #' @param layout character, Layout of d3Tree output collapse, cartesian, radial Default: 'collapse'
+#' @param ... parameters to pass to d3tree
 #' @details 
 #' By default path assumes a local address, if path is a valid repository name eg 'tidyverse/glue' 
 #' then the pattern is checked on the specified pulic github repository
@@ -18,17 +19,20 @@
 #' show_repo('tidyverse/glue',gh_branch='named_args')
 #' @seealso
 #'  \code{\link[d3Tree]{d3tree}}
-show_repo <- function(path=getwd(),gh_branch='master',layout='collapse'){
+show_repo <- function(path=getwd(),branch='master',layout='collapse',...){
   this_wd <- getwd()
   if(!dir.exists(path)){
-    uri <- sprintf('https://github.com/%s.git',path)
-    if (httr::http_error(uri))
-      stop(sprintf("github repo: %s not found", uri))
-    #pathout <- system(sprintf('svn ls %s/branches/master -R',uri),intern=TRUE)[-1]
-    
-    tr<-httr::content(httr::GET(sprintf('https://api.github.com/repos/%s/git/trees/%s%s',path,gh_branch,'?recursive=1')))$tree
-    s=sapply(tr,function(x) if(x$mode!='040000') x$path)
-    pathout<-unlist(s)
+    uri_git <- sprintf('https://github.com/%s.git',path)
+    uri_bit <- sprintf('https://bitbucket.org/!api/1.0/repositories/%s/directory/%s',path,branch)
+    chk_git<-httr::http_error(uri_git)
+    chk_bit<-httr::http_error(uri_bit)
+    if(chk_git&chk_bit) stop(sprintf("repo: %s not found", uri))
+    if(!chk_git){
+    tr <- httr::content(httr::GET(sprintf('https://api.github.com/repos/%s/git/trees/%s%s',path,branch,'?recursive=1')))$tree
+    s <- sapply(tr,function(x) if(x$mode!='040000') x$path)
+    pathout <- unlist(s)
+    }
+    if(!chk_bit)  pathout <- unlist(httr::content(httr::GET(uri_bit))$value)[-1]
     
   }else{
     setwd(tools::file_path_as_absolute(path))
@@ -39,6 +43,8 @@ show_repo <- function(path=getwd(),gh_branch='master',layout='collapse'){
   x <- plyr::rbind.fill(x)
   x$depth <- apply(x,1,function(y) sum(!is.na(y)))
   setwd(this_wd)
-  htmltools::html_print(d3Tree::d3tree(list(root = d3Tree::df2tree(rootname='repo',struct=x),layout = layout)))
+  htmltools::html_print(d3Tree::d3tree(
+    list(root = d3Tree::df2tree(rootname='repo',struct=x),layout = layout),...)
+    )
   invisible(x)
 }

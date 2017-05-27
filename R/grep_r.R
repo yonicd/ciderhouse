@@ -5,10 +5,10 @@
 #' @param recursive logical, Should the listing recurse into directories? passed to list.files, Default: FALSE
 #' @param padding   integer, number of rows to return in addition to the query line, Default: 5
 #' @param ...       arguments passed to grep
-#' @return grepDir(value = FALSE) returns a vector of the indices of the elements of x 
+#' @return grepr(value = FALSE) returns a vector of the indices of the elements of x 
 #' that yielded a match (or not, for invert = TRUE. 
 #' This will be an integer vector unless the input is a long vector, when it will be a double vector.
-#' grepDir(value = TRUE) returns a character vector containing the selected elements of x 
+#' grepr(value = TRUE) returns a character vector containing the selected elements of x 
 #' (after coercion, preserving names but no other attributes).
 #' @details
 #' if path is a character then the pattern is checked against a location on the local machine, 
@@ -16,11 +16,11 @@
 #' then the pattern is checked on the specified github repository (repository must be public).
 #' In this case of the recursive parameter takes over-rides over the list parameter.
 #' @examples 
-#' grepDir(pattern = 'gsub',path = '.',value=TRUE,recursive = T)
-#' grepDir(pattern = 'importFrom',path = c(repo='yonicd/ciderhouse',subdir='R'),value=TRUE)
+#' grepr(pattern = 'gsub',path = '.',value=TRUE,recursive = T)
+#' grepr(pattern = 'importFrom',path = c(repo='yonicd/ciderhouse',subdir='R'),value=TRUE)
 #' @export
 #' 
-grepDir=function(pattern,path,recursive=FALSE,padding=0,...){
+grepr=function(pattern,path,recursive=FALSE,padding=0,...){
   grepVars=list(...)
   list2env(grepVars,envir = environment())
   if(is.character(path)) fl=list.files(path,recursive = recursive,full.names = TRUE)

@@ -13,7 +13,7 @@
 #' @importFrom d3Tree d3tree df2tree
 #' @importFrom plyr rbind.fill
 #' @importFrom htmltools html_print
-#' @importFrom httr http_error
+#' @importFrom httr http_error GET content
 #' @examples 
 #' show_repo('tidyverse/glue')
 #' show_repo('tidyverse/glue',gh_branch='named_args')

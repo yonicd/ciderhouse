@@ -2,12 +2,12 @@
 
 gitLogs has been moved to its own [repo](https://github.com/yonicd/gitLogs)
 
-## grepDir
+## grepr
 Function that applies a recursive grep in R to search in entire directory tree on a local path or in github, returns grep by file that matches pattern. 
 
 ### Local path
 ```r
-  grepDir(pattern = 'gsub',path = '.',value=TRUE,recursive = T)
+  grepr(pattern = 'gsub',path = '.',value=TRUE,recursive = T)
 
 $`./R/makeImport.R`
 [1] "  names(s1)=gsub('\\\\\\\\b','',names(s1))"                                                           
@@ -41,9 +41,9 @@ $`./R/setwdURL.R`
 ### Github
 
 ```r
-  grepDir(pattern = 'importFrom',path = c('yonicd/ciderhouse','R'),value=TRUE)
-$`R/grepDir.R`
-[1] "#' grepDir(pattern = 'importFrom',path = c(repo='yonicd/ciderhouse',subdir='R'),value=TRUE)"
+  grepr(pattern = 'importFrom',path = c('yonicd/ciderhouse','R'),value=TRUE)
+$`R/grepr.R`
+[1] "#' grepr(pattern = 'importFrom',path = c(repo='yonicd/ciderhouse',subdir='R'),value=TRUE)"
 
 $`R/importAddin.R`
 [1] "#' @importFrom rstudioapi getActiveDocumentContext"
@@ -76,7 +76,7 @@ ls_github(repo='yonicd/ciderhouse')
 
 #subdirectory R
 ls_github(repo='yonicd/ciderhouse',subdir='R')
-[1] "https://raw.githubusercontent.com/yonicd/ciderhouse/master/R/grepDir.R"        
+[1] "https://raw.githubusercontent.com/yonicd/ciderhouse/master/R/grepr.R"        
 [2] "https://raw.githubusercontent.com/yonicd/ciderhouse/master/R/importAddin.R"    
 [3] "https://raw.githubusercontent.com/yonicd/ciderhouse/master/R/listFilesGithub.R"
 [4] "https://raw.githubusercontent.com/yonicd/ciderhouse/master/R/makeImport.R"     

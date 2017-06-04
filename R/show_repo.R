@@ -19,7 +19,7 @@
 #' show_repo('tidyverse/glue',gh_branch='named_args')
 #' @seealso
 #'  \code{\link[d3Tree]{d3tree}}
-show_repo <- function(path=getwd(),branch='master',layout='collapse',...){
+show_repo <- function(path=getwd(),branch='master',showTree=TRUE,layout='collapse',...){
   this_wd <- getwd()
   if(!dir.exists(path)){
     uri_git <- sprintf('https://github.com/%s.git',path)
@@ -43,8 +43,12 @@ show_repo <- function(path=getwd(),branch='master',layout='collapse',...){
   x <- plyr::rbind.fill(x)
   x$depth <- apply(x,1,function(y) sum(!is.na(y)))
   setwd(this_wd)
-  htmltools::html_print(d3Tree::d3tree(
-    list(root = d3Tree::df2tree(rootname='repo',struct=x),layout = layout),...)
+  if(showTree){
+    htmltools::html_print(d3Tree::d3tree(
+      list(root = d3Tree::df2tree(rootname='repo',struct=x),layout = layout),...)
     )
-  invisible(x)
+    invisible(x)
+  }else{
+    pathout
+  }
 }

@@ -4,7 +4,8 @@
 \alias{show_repo}
 \title{Visually inspect structure of git repository before initial fetch}
 \usage{
-show_repo(path = getwd(), branch = "master", layout = "collapse", ...)
+show_repo(path = getwd(), branch = "master", showTree = TRUE,
+  layout = "collapse", ...)
 }
 \arguments{
 \item{path}{character, Path to root directory of git repository or a name of a github/bitbucket repository, Default: setwd()}

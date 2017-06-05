@@ -4,12 +4,20 @@
 \alias{ls_github}
 \title{List files of a github repository subdirectory}
 \usage{
-ls_github(repo, ref = "master", subdir = NULL, recursive = FALSE)
+ls_github(repo, branch = "master", subdir = NULL, full.names = FALSE,
+  recursive = FALSE)
 }
 \arguments{
-\item{repo}{character Repository address in the format username/repo}
+\item{repo}{character, Repository address in the format username/repo}
 
-\item{subdir}{subdirectory within repo that contains the files to list}
+\item{branch}{character, Branch of repo, Default: 'master'}
+
+\item{subdir}{character, subdirectory within repo that contains the files to list}
+
+\item{full.names}{boolean, If TRUE, the directory path is prepended to the file names to give a relative file path. 
+If FALSE, the file names (rather than paths) are returned, Default: TRUE}
+
+\item{recursive}{boolean, Should the listing recurse into directories?, Default: FALSE}
 }
 \description{
 List full raw paths to files in a github repository subdirectory

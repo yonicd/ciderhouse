@@ -26,6 +26,7 @@ grepr=function(pattern,path,recursive=FALSE,padding=0,...){
   if(is.character(path)) fl=list.files(path,recursive = recursive,full.names = TRUE)
   if(is.list(path)){
     path$recursive=recursive
+    path$full.names=TRUE
     fl=do.call(ls_github,path)
   } 
 

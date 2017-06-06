@@ -2,6 +2,7 @@
 
 export(grepr)
 export(ls_github)
+export(ls_head)
 export(setwd_github)
 export(show_repo)
 export(source_github)

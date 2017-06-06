@@ -41,7 +41,7 @@ ls_head <- function(path=getwd(),branch='master'){
     
     if(!chk_svn){
       td <- tempdir()
-      system(sprintf('svn ls %s --depth %s',path,td)) 
+      system(sprintf('svn co %s --depth empty %s',path,td)) 
       setwd(td)
       pathout<-system("svn ls -R | grep -v '/$'",intern = TRUE)
       unlink(td)

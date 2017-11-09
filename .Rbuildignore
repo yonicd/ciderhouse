@@ -3,3 +3,4 @@
 ^.*\.yml$
 body.R
 nonmemTibble.R
+*.gif

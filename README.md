@@ -4,6 +4,7 @@
 
 ```r
 library(animation)
+library(ciderhouse)
 ani.options(interval = 0.2)
 
 set.seed(1)

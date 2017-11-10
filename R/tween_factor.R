@@ -29,6 +29,6 @@ tween_factor <- function(data, levels, direction.mat, ...) {
   }
 
   plyr::ddply(direction.mat, c("id"), function(x) {
-    tweenr::tween_states(list(dat_center[x[, 1], ], dat_center[x[, 2], ]), ...)
+    tweenr::tween_states(list(dat_center[match(x[,1],dat_center[[1]]), ], dat_center[match(x[,2],dat_center[[1]]), ]), ...)
   })
 }
